@@ -10,14 +10,14 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:github-actions-badges.helloWorld"
+		"onCommand:github-actions-badges.open-workflow"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "github-actions-badges.helloWorld",
-				"title": "Hello World",
+				"command": "github-actions-badges.open-workflow",
+				"title": "Open Workflow on Github.com",
 				"category": "GitHub Actions Badges"
 			}
 		]
