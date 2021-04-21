@@ -17,7 +17,8 @@
 		"commands": [
 			{
 				"command": "github-actions-badges.helloWorld",
-				"title": "Hello World"
+				"title": "Hello World",
+				"category": "GitHub Actions Badges"
 			}
 		]
 	},
