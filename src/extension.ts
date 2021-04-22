@@ -1,6 +1,7 @@
 import { ExtensionContext, commands, window, Disposable } from 'vscode';
 
 import { showBadgePanel } from './badges';
+import { getCurrentRepo } from './currentRepo';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -14,6 +15,7 @@ export function activate(context: ExtensionContext) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
+	const { owner, name } = getCurrentRepo();
 	const extensionCommands = [
 		commands.registerCommand('github-actions-badges.open-workflow', () => {
 			// The code you place here will be executed every time your command is executed
@@ -23,7 +25,7 @@ export function activate(context: ExtensionContext) {
 		}),
 
 		commands.registerCommand('github-actions-badges.show-badges', () => {
-			window.showInformationMessage('Showing Badges');
+			window.showInformationMessage(`Showing Badges for ${owner}/${name}`);
 			showBadgePanel();
 		}),
 	];

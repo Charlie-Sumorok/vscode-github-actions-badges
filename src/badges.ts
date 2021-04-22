@@ -1,5 +1,6 @@
 import { ViewColumn, window } from 'vscode';
 import { Octokit } from '@octokit/core';
+import { getCurrentRepo } from './currentRepo';
 
 interface Repo {
 	owner: string;
@@ -56,12 +57,7 @@ const showBadges = (badges: Badge[]) => {
 };
 
 const getWebviewContent = async () => {
-	return showBadges(
-		await getBadges({
-			owner: 'Charlie-Sumorok',
-			name: 'Linux-Distro-Picker',
-		})
-	);
+	return showBadges(await getBadges(getCurrentRepo()));
 };
 
 export async function showBadgePanel() {
