@@ -25,6 +25,10 @@ export function activate(context: ExtensionContext) {
 	);
 
 	context.subscriptions.push(disposable);
+
+	commands.registerCommand('github-actions-badges.show-badges', () => {
+		window.showInformationMessage('Showing Badges');
+	});
 }
 
 // this method is called when your extension is deactivated
