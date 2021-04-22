@@ -35,7 +35,7 @@ const getBadges = async (repo: Repo) => {
 	return workflows;
 };
 
-const showBadges = (badges: Badge[]) => {
+const showBadges = (repo: Repo, badges: Badge[]) => {
 	return `<!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -44,6 +44,13 @@ const showBadges = (badges: Badge[]) => {
 		<title>Github Actions Badges</title>
 	</head>
 	<body>
+		<h1>
+			<a href="https://github.com/${repo.owner}">
+				${repo.owner}
+			</a>/<a href="https://github.com/${repo.owner}/${repo.name}">
+				${repo.name}
+			</a>
+		</h1>
 	${badges
 		.map(({ badge, workflow }: Badge) => {
 			return `<a href="${workflow}">
@@ -57,7 +64,9 @@ const showBadges = (badges: Badge[]) => {
 };
 
 const getWebviewContent = async () => {
-	return showBadges(await getBadges(getCurrentRepo()));
+	const currentRepo = getCurrentRepo();
+	const badges = await getBadges(currentRepo);
+	return showBadges(currentRepo, badges);
 };
 
 export async function showBadgePanel() {
