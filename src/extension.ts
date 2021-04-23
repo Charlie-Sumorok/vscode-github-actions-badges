@@ -17,14 +17,17 @@ export function activate(context: ExtensionContext) {
 	// The commandId parameter must match the command field in package.json
 	const { owner, name } = getCurrentRepo();
 	const extensionCommands = [
-		commands.registerCommand('github-actions-badges.open-workflow', () => {
-			// The code you place here will be executed every time your command is executed
+		commands.registerCommand(
+			'vscode-github-actions-badges.open-workflow',
+			() => {
+				// The code you place here will be executed every time your command is executed
 
-			// Display a message box to the user
-			window.showInformationMessage('Opening workflows on GitHub.com');
-		}),
+				// Display a message box to the user
+				window.showInformationMessage('Opening all workflows on GitHub.com');
+			}
+		),
 
-		commands.registerCommand('github-actions-badges.show-badges', () => {
+		commands.registerCommand('vscode-github-actions-badges.show-badges', () => {
 			window.showInformationMessage(`Showing Badges for ${owner}/${name}`);
 			showBadgePanel();
 		}),

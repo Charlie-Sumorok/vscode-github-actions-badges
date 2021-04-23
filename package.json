@@ -1,5 +1,5 @@
 {
-	"name": "github-actions-badges",
+	"name": "vscode-github-actions-badges",
 	"displayName": "GitHub Actions Badges",
 	"description": "View all GitHub Actions Badges of a GitHub repo",
 	"version": "0.0.1",
@@ -10,19 +10,19 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:github-actions-badges.open-workflow",
-		"onCommand:github-actions-badges.show-badges"
+		"onCommand:vscode-github-actions-badges.open-workflow",
+		"onCommand:vscode-github-actions-badges.show-badges"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "github-actions-badges.open-workflow",
-				"title": "Open Workflow on Github.com",
+				"command": "vscode-github-actions-badges.open-workflow",
+				"title": "Open all Workflows on Github.com",
 				"category": "GitHub Actions Badges"
 			},
 			{
-				"command": "github-actions-badges.show-badges",
+				"command": "vscode-github-actions-badges.show-badges",
 				"title": "Open Badges Preview",
 				"category": "GitHub Actions Badges"
 			}
