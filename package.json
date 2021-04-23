@@ -10,14 +10,14 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:vscode-github-actions-badges.open-workflow",
+		"onCommand:vscode-github-actions-badges.open-workflows",
 		"onCommand:vscode-github-actions-badges.show-badges"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "vscode-github-actions-badges.open-workflow",
+				"command": "vscode-github-actions-badges.open-workflows",
 				"title": "Open all Workflows on Github.com",
 				"category": "GitHub Actions Badges"
 			},

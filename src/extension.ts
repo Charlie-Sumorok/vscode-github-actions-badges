@@ -18,7 +18,7 @@ export function activate(context: ExtensionContext) {
 	const { owner, name } = getCurrentRepo();
 	const extensionCommands = [
 		commands.registerCommand(
-			'vscode-github-actions-badges.open-workflow',
+			'vscode-github-actions-badges.open-workflows',
 			() => {
 				// The code you place here will be executed every time your command is executed
 
