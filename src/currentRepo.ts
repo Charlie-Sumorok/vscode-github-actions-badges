@@ -1,10 +1,31 @@
-export const getRemoteURL = () => {
-	return 'https://github.com/Charlie-Sumorok/Linux-Distro-Picker.git';
+import { execFileSync } from 'child_process';
+
+export const getCurrentDirectory = () => {
+	return '/Users/charlie/github/pop-under-deobfuscation';
+};
+
+export const getRemoteURL = (directory: string) => {
+	const remotesString = execFileSync('git', ['remote', '--verbose'], {
+		encoding: 'utf-8',
+		cwd: directory,
+	});
+	const remoteLines = remotesString.split('\n').filter(Boolean);
+	const remotesInfo = remoteLines.map((remoteLine) => {
+		const [remote, url, type] = remoteLine.split('\t').join(' ').split(' ');
+		return {
+			remote,
+			url,
+			type,
+		};
+	});
+	const remoteURL = remotesInfo[0].url;
+
+	return remoteURL;
 };
 
 export const getCurrentRepo = () => {
 	// const repo = atom.project.getRepositories()[0];
-	const url: string = getRemoteURL(); //repo.getOriginURL();
+	const url: string = getRemoteURL(getCurrentDirectory()); //repo.getOriginURL();
 	let parts = url.split('/');
 	parts[parts.length - 1] = parts[parts.length - 1]
 		.split('')
