@@ -1,4 +1,4 @@
-import { ViewColumn, Webview, window } from 'vscode';
+import { ViewColumn, window } from 'vscode';
 import { Octokit } from '@octokit/core';
 import { getCurrentRepo } from './currentRepo';
 import { getNonce } from './getNonce';

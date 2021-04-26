@@ -48,10 +48,13 @@ export async function activate(context: ExtensionContext) {
 		commands.registerCommand(
 			'vscode-github-actions-badges.open-workflows',
 			() => {
+				const { owner, name } = getCurrentRepo();
+				const url = Uri.parse(`https://github.com/${owner}/${name}/actions`);
 				// The code you place here will be executed every time your command is executed
 
 				// Display a message box to the user
 				window.showInformationMessage('Opening all workflows on GitHub.com');
+				env.openExternal(url);
 			}
 		),
 
