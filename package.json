@@ -10,19 +10,25 @@
 		"Other"
 	],
 	"activationEvents": [
+		"onCommand:vscode-github-actions-badges.open-workflow",
 		"onCommand:vscode-github-actions-badges.open-workflows",
-		"onCommand:vscode-github-actions-badges.show-badges"
+		"onCommand:vscode-github-actions-badges.show-all-badges"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
 		"commands": [
+			{
+				"command": "vscode-github-actions-badges.open-workflow",
+				"title": "Open Workflow on Github.com",
+				"category": "GitHub Actions Badges"
+			},
 			{
 				"command": "vscode-github-actions-badges.open-workflows",
 				"title": "Open all Workflows on Github.com",
 				"category": "GitHub Actions Badges"
 			},
 			{
-				"command": "vscode-github-actions-badges.show-badges",
+				"command": "vscode-github-actions-badges.show-all-badges",
 				"title": "Open Badges Preview",
 				"category": "GitHub Actions Badges"
 			}

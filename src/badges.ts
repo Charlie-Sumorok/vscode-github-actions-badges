@@ -13,7 +13,7 @@ interface Badge {
 	name: string;
 }
 
-const getBadges = async (repo: Repo) => {
+export const getBadges = async (repo: Repo) => {
 	const octokit = new Octokit();
 	const request = await octokit.request(
 		'GET /repos/{owner}/{repo}/actions/workflows',
@@ -42,7 +42,6 @@ const showBadges = (
 	repo: Repo,
 	badges: Badge[],
 	styles: string[],
-	webview: Webview,
 	nonce: string
 ) => {
 	return `<!DOCTYPE html>
@@ -243,21 +242,20 @@ img {
 }
 `;
 
-const getWebviewContent = async (webview: Webview) => {
+const getWebviewContent = async (badges: Badge[]) => {
 	const currentRepo = getCurrentRepo();
-	const badges = await getBadges(currentRepo);
 	const styles = [mainStyle, resetStyle];
 	const nonce = getNonce();
-	const badgesHTML = showBadges(currentRepo, badges, styles, webview, nonce);
+	const badgesHTML = showBadges(currentRepo, badges, styles, nonce);
 	return badgesHTML;
 };
 
-export const showBadgePanel = async () => {
+export const showBadgePanel = async (badges: Badge[]) => {
 	const panel = window.createWebviewPanel(
 		'worflowBadges',
 		'Worflow Badges',
 		{ viewColumn: ViewColumn.One },
 		{}
 	);
-	panel.webview.html = await getWebviewContent(panel.webview);
+	panel.webview.html = await getWebviewContent(badges);
 };
