@@ -1,4 +1,11 @@
-import { ExtensionContext, commands, window, Disposable } from 'vscode';
+import {
+	ExtensionContext,
+	commands,
+	window,
+	Disposable,
+	env,
+	Uri,
+} from 'vscode';
 
 import { getBadges, showBadgePanel } from './badges';
 import { getCurrentRepo } from './currentRepo';
@@ -20,6 +27,24 @@ export async function activate(context: ExtensionContext) {
 	// The commandId parameter must match the command field in package.json
 	const { owner, name } = getCurrentRepo();
 	const extensionCommands = [
+		commands.registerCommand(
+			'vscode-github-actions-badges.open-workflow',
+			async () => {
+				const quickPickBadges = badges.map(({ workflow, name }) => {
+					return {
+						label: name,
+						url: Uri.parse(workflow),
+					};
+				});
+				const chosenWorkflow = await window.showQuickPick(quickPickBadges);
+				if (chosenWorkflow) {
+					window.showInformationMessage(
+						`Opening workflow ${chosenWorkflow.label} on GitHub.com`
+					);
+					env.openExternal(chosenWorkflow.url);
+				}
+			}
+		),
 		commands.registerCommand(
 			'vscode-github-actions-badges.open-workflows',
 			() => {

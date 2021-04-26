@@ -24,14 +24,28 @@ export const getBadges = async (repo: Repo) => {
 	);
 	const rawWorkflows = request.data;
 	const workflows = rawWorkflows.workflows.map((workflow) => {
-		const workflowParts = workflow.badge_url.split('/');
+		const workflowParts = {
+			badge: workflow.badge_url.split('/'),
+			html: workflow.html_url.split('/'),
+		};
+		const url = `${workflowParts.badge
+			.filter((_, index) => {
+				return index !== workflowParts.badge.length - 1;
+			})
+			.map((part) => {
+				if (part === 'workflows') {
+					return 'actions/workflows';
+				} else {
+					return part;
+				}
+			})
+			.filter((_, index) => {
+				return index < workflowParts.badge.length - 2;
+			})
+			.join('/')}/${workflowParts.html[workflowParts.html.length - 1]}`;
 		return {
 			badge: workflow.badge_url,
-			workflow: workflowParts
-				.filter((_, index) => {
-					return index !== workflowParts.length - 1;
-				})
-				.join('/'),
+			workflow: url,
 			name: workflow.name,
 		};
 	});
