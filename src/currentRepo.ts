@@ -1,7 +1,14 @@
 import { execFileSync } from 'child_process';
+import { workspace, window } from 'vscode';
 
 export const getCurrentDirectory = () => {
-	return '/Users/charlie/github/pop-under-deobfuscation';
+	if (workspace.workspaceFolders) {
+		const rootFolder = workspace.workspaceFolders[0].uri.path;
+		return rootFolder;
+	} else {
+		window.showInformationMessage('Please open a folder');
+		return '';
+	}
 };
 
 export const getRemoteURL = (directory: string) => {
