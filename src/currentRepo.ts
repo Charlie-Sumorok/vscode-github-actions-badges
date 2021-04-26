@@ -27,22 +27,24 @@ export const getRemoteURL = (directory: string) => {
 	});
 	const remoteURL = remotesInfo[0].url;
 
-	return remoteURL;
+	const folders = directory.split('/');
+	return [remoteURL, folders[folders.length - 1]];
 };
 
 export const getCurrentRepo = () => {
-	// const repo = atom.project.getRepositories()[0];
-	const url: string = getRemoteURL(getCurrentDirectory()); //repo.getOriginURL();
-	let parts = url.split('/');
+	const currentDirectory = getCurrentDirectory();
+	const url = getRemoteURL(currentDirectory);
+	let parts = url[0].split('/');
 	parts[parts.length - 1] = parts[parts.length - 1]
 		.split('')
 		.filter((_: string, index: number) => {
 			return index < parts[parts.length - 1].length - 4;
 		})
 		.join('');
-	const [owner, name] = parts.filter((_, index) => {
+	const [owner, repoName] = parts.filter((_, index) => {
 		return parts.length - index <= 2;
 	});
+	const name = url[1];
 	return {
 		owner,
 		name,
