@@ -1,6 +1,5 @@
 import { Octokit } from '@octokit/core';
 import { getCurrentRepo } from './currentRepo';
-import { getNonce } from './getNonce';
 
 export interface Repo {
 	owner: string;
@@ -51,12 +50,7 @@ export const getBadges = async (repo: Repo) => {
 	return workflows;
 };
 
-const showBadges = (
-	repo: Repo,
-	badges: Badge[],
-	styles: string[],
-	nonce: string
-) => {
+const showBadges = (repo: Repo, badges: Badge[], styles: string[]) => {
 	return `<!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -139,7 +133,7 @@ body {
 	font-size: var(--vscode-font-size);
 	font-weight: var(--vscode-font-weight);
 	font-family: var(--vscode-font-family);
-	background-color: var(--vscode-editor-background);
+	background-color: var(--vscode-sideBar-background);
 }
 
 ol,
@@ -255,7 +249,6 @@ img {
 export const getWebviewContent = async (badges: Badge[]) => {
 	const currentRepo = getCurrentRepo();
 	const styles = [mainStyle, resetStyle];
-	const nonce = getNonce();
-	const badgesHTML = showBadges(currentRepo, badges, styles, nonce);
+	const badgesHTML = showBadges(currentRepo, badges, styles);
 	return badgesHTML;
 };
