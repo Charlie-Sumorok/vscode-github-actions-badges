@@ -3,11 +3,11 @@ import { Octokit } from '@octokit/core';
 import { getCurrentRepo } from './currentRepo';
 import { getNonce } from './getNonce';
 
-interface Repo {
+export interface Repo {
 	owner: string;
 	name: string;
 }
-interface Badge {
+export interface Badge {
 	badge: string;
 	workflow: string;
 	name: string;
@@ -253,7 +253,7 @@ img {
 }
 `;
 
-const getWebviewContent = async (badges: Badge[]) => {
+export const getWebviewContent = async (badges: Badge[]) => {
 	const currentRepo = getCurrentRepo();
 	const styles = [mainStyle, resetStyle];
 	const nonce = getNonce();
@@ -274,5 +274,6 @@ export const showBadgePanel = async (badges: Badge[], extensionUri: Uri) => {
 			localResourceRoots: [Uri.joinPath(extensionUri, '.')],
 		}
 	);
-	panel.webview.html = await getWebviewContent(badges);
+	const content = await getWebviewContent(badges);
+	panel.webview.html = content;
 };

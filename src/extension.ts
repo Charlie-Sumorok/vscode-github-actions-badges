@@ -9,6 +9,7 @@ import {
 
 import { getBadges, showBadgePanel } from './badges';
 import { getCurrentRepo } from './currentRepo';
+import { SidebarProvider } from './sidebar';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -61,10 +62,15 @@ export function activate(context: ExtensionContext) {
 			async () => {
 				const currentRepo = getCurrentRepo();
 				const badges = await getBadges(currentRepo);
-				const { owner, name } = getCurrentRepo();
+				const { owner, name } = currentRepo;
 				window.showInformationMessage(`Showing Badges for ${owner}/${name}`);
 				showBadgePanel(badges, context.extensionUri);
 			}
+		),
+
+		window.registerWebviewViewProvider(
+			'vscode-github-actions-badges-sidebar',
+			new SidebarProvider(context.extensionUri)
 		),
 	];
 

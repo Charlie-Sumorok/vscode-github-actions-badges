@@ -12,7 +12,8 @@
 	"activationEvents": [
 		"onCommand:vscode-github-actions-badges.open-workflow",
 		"onCommand:vscode-github-actions-badges.open-workflows",
-		"onCommand:vscode-github-actions-badges.show-all-badges"
+		"onCommand:vscode-github-actions-badges.show-all-badges",
+		"onView:vscode-github-actions-badges-sidebar"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -32,7 +33,27 @@
 				"title": "Open Badges Preview",
 				"category": "GitHub Actions Badges"
 			}
-		]
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "vscode-github-actions-badges-sidebar-view",
+					"icon": "$(pass-filled)",
+					"title": "Badges Preview1"
+				}
+			]
+		},
+		"views": {
+			"vscode-github-actions-badges-sidebar-view": [
+				{
+					"type": "webview",
+					"id": "vscode-github-actions-badges-sidebar",
+					"name": "Badges Preview2",
+					"icon": "$(pass-filled)",
+					"contextualTitle": "Badges Preview3"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run package",
