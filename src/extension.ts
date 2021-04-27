@@ -39,7 +39,7 @@ export async function activate(context: ExtensionContext) {
 				const chosenWorkflow = await window.showQuickPick(quickPickBadges);
 				if (chosenWorkflow) {
 					window.showInformationMessage(
-						`Opening workflow ${chosenWorkflow.label} on GitHub.com`
+						`Opening workflow '${chosenWorkflow.label}' on GitHub.com`
 					);
 					env.openExternal(chosenWorkflow.url);
 				}
@@ -62,7 +62,7 @@ export async function activate(context: ExtensionContext) {
 			'vscode-github-actions-badges.show-all-badges',
 			() => {
 				window.showInformationMessage(`Showing Badges for ${owner}/${name}`);
-				showBadgePanel(badges);
+				showBadgePanel(badges, context.extensionUri);
 			}
 		),
 	];

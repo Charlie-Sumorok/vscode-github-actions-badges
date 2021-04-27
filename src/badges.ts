@@ -1,4 +1,4 @@
-import { ViewColumn, window } from 'vscode';
+import { extensions, Uri, ViewColumn, window } from 'vscode';
 import { Octokit } from '@octokit/core';
 import { getCurrentRepo } from './currentRepo';
 import { getNonce } from './getNonce';
@@ -76,27 +76,6 @@ const showBadges = (
 				margin: 0;
 			}
 		</style>
-		<script nonce="${nonce}">
-			const searchBadges = () => {
-				// Declare variables
-				var a, i, txtValue;
-				var input = document.getElementById('search');
-				var filter = input.value.toUpperCase();
-				var ul = document.getElementById('badges');
-				var li = ul.getElementsByTagName('li');
-
-				// Loop through all list items, and hide those who don't match the search query
-				for (i = 0; i < li.length; i++) {
-					a = li[i].getElementsByTagName('a')[0];
-					txtValue = a.children[0].dataset.alt;
-					if (txtValue.toUpperCase().indexOf(filter) > -1) {
-						li[i].style.display = '';
-					} else {
-						li[i].style.display = 'none';
-					}
-				}
-			}
-		</script>
 	</head>
 	<body>
 		<h1>
@@ -109,7 +88,25 @@ const showBadges = (
 		<input
 			id="search"
 			type="text"
-			onkeydown="searchForBadges()"
+			onkeyup="
+				// Declare variables
+				const input = document.getElementById('search');
+				const text = input.value
+				const filter = text.toUpperCase()
+				const ul = document.getElementById('badges');
+				const li = ul.getElementsByTagName('li');
+
+				// Loop through all list items, and hide those who don't match the search query
+				for (var i = 0; i < li.length; i++) {
+					var a = li[i].getElementsByTagName('a')[0];
+					var txtValue = a.children[0].dataset.alt;
+					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+						li[i].style.display = '';
+					} else {
+						li[i].style.display = 'none';
+					}
+				}
+			"
 			placeholder="Search for badges..."
 		/>
 		<ul id="badges">
@@ -264,12 +261,18 @@ const getWebviewContent = async (badges: Badge[]) => {
 	return badgesHTML;
 };
 
-export const showBadgePanel = async (badges: Badge[]) => {
+export const showBadgePanel = async (badges: Badge[], extensionUri: Uri) => {
 	const panel = window.createWebviewPanel(
 		'worflowBadges',
 		'Worflow Badges',
 		{ viewColumn: ViewColumn.One },
-		{}
+		{
+			// Enable Javascript
+			enableScripts: true,
+
+			// Restrict Sources
+			localResourceRoots: [Uri.joinPath(extensionUri, '.')],
+		}
 	);
 	panel.webview.html = await getWebviewContent(badges);
 };
