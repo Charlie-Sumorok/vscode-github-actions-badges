@@ -51,7 +51,7 @@
 				{
 					"id": "vscode-github-actions-badges-sidebar-view",
 					"icon": "$(pass-filled)",
-					"title": "Badges Preview1"
+					"title": "GitHub Actions Badges Preview"
 				}
 			]
 		},
@@ -60,9 +60,9 @@
 				{
 					"type": "webview",
 					"id": "vscode-github-actions-badges-sidebar",
-					"name": "Badges Preview2",
+					"name": "GitHub Actions Badges Preview",
 					"icon": "$(pass-filled)",
-					"contextualTitle": "Badges Preview3"
+					"contextualTitle": "GitHub Actions Badges Preview"
 				}
 			]
 		}
