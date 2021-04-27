@@ -12,24 +12,22 @@ import { getCurrentRepo } from './currentRepo';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
-export async function activate(context: ExtensionContext) {
+export function activate(context: ExtensionContext) {
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
 	console.log(
 		'Congratulations, your extension "github-actions-badges" is now active!'
 	);
 
-	const currentRepo = getCurrentRepo();
-	const badges = await getBadges(currentRepo);
-
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	const { owner, name } = getCurrentRepo();
 	const extensionCommands = [
 		commands.registerCommand(
 			'vscode-github-actions-badges.open-workflow',
 			async () => {
+				const currentRepo = getCurrentRepo();
+				const badges = await getBadges(currentRepo);
 				const quickPickBadges = badges.map(({ workflow, name }) => {
 					return {
 						label: name,
@@ -60,7 +58,10 @@ export async function activate(context: ExtensionContext) {
 
 		commands.registerCommand(
 			'vscode-github-actions-badges.show-all-badges',
-			() => {
+			async () => {
+				const currentRepo = getCurrentRepo();
+				const badges = await getBadges(currentRepo);
+				const { owner, name } = getCurrentRepo();
 				window.showInformationMessage(`Showing Badges for ${owner}/${name}`);
 				showBadgePanel(badges, context.extensionUri);
 			}
