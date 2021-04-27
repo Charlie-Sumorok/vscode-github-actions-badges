@@ -12,8 +12,10 @@
 	"activationEvents": [
 		"onCommand:vscode-github-actions-badges.open-workflow",
 		"onCommand:vscode-github-actions-badges.open-workflows",
-		"onCommand:vscode-github-actions-badges.show-all-badges",
-		"onView:vscode-github-actions-badges-sidebar"
+		"onView:vscode-github-actions-badges-sidebar",
+		"onCommand:vscode-github-actions-badges.show-badges-preview",
+		"onCommand:vscode-github-actions-badges.close-badges-preview",
+		"onCommand:vscode-github-actions-badges.reload-badges-preview"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -29,8 +31,18 @@
 				"category": "GitHub Actions Badges"
 			},
 			{
-				"command": "vscode-github-actions-badges.show-all-badges",
+				"command": "vscode-github-actions-badges.show-badges-preview",
 				"title": "Open Badges Preview",
+				"category": "GitHub Actions Badges"
+			},
+			{
+				"command": "vscode-github-actions-badges.close-badges-preview",
+				"title": "Close Badges Preview",
+				"category": "GitHub Actions Badges"
+			},
+			{
+				"command": "vscode-github-actions-badges.reload-badges-preview",
+				"title": "Reload Badges Preview",
 				"category": "GitHub Actions Badges"
 			}
 		],

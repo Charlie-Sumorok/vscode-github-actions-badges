@@ -1,4 +1,3 @@
-import { extensions, Uri, ViewColumn, window } from 'vscode';
 import { Octokit } from '@octokit/core';
 import { getCurrentRepo } from './currentRepo';
 import { getNonce } from './getNonce';
@@ -259,21 +258,4 @@ export const getWebviewContent = async (badges: Badge[]) => {
 	const nonce = getNonce();
 	const badgesHTML = showBadges(currentRepo, badges, styles, nonce);
 	return badgesHTML;
-};
-
-export const showBadgePanel = async (badges: Badge[], extensionUri: Uri) => {
-	const panel = window.createWebviewPanel(
-		'worflowBadges',
-		'Worflow Badges',
-		{ viewColumn: ViewColumn.One },
-		{
-			// Enable Javascript
-			enableScripts: true,
-
-			// Restrict Sources
-			localResourceRoots: [Uri.joinPath(extensionUri, '.')],
-		}
-	);
-	const content = await getWebviewContent(badges);
-	panel.webview.html = content;
 };

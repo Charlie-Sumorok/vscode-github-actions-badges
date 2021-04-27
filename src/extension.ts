@@ -7,7 +7,7 @@ import {
 	Uri,
 } from 'vscode';
 
-import { getBadges, showBadgePanel } from './badges';
+import { getBadges } from './badges';
 import { getCurrentRepo } from './currentRepo';
 import { SidebarProvider } from './sidebar';
 
@@ -24,6 +24,46 @@ export function activate(context: ExtensionContext) {
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
 	const extensionCommands = [
+		window.registerWebviewViewProvider(
+			'vscode-github-actions-badges-sidebar',
+			new SidebarProvider(context.extensionUri)
+		),
+
+		commands.registerCommand(
+			'vscode-github-actions-badges.show-badges-preview',
+			async () => {
+				const { owner, name } = getCurrentRepo();
+				window.showInformationMessage(`Showing Badges for ${owner}/${name}`);
+				await commands.executeCommand(
+					'vscode-github-actions-badges-sidebar.focus'
+				);
+			}
+		),
+
+		commands.registerCommand(
+			'vscode-github-actions-badges.close-badges-preview',
+			async () => {
+				const { owner, name } = getCurrentRepo();
+				window.showInformationMessage(`Closing Badges for ${owner}/${name}`);
+				await commands.executeCommand('workbench.action.closeSidebar');
+			}
+		),
+
+		commands.registerCommand(
+			'vscode-github-actions-badges.reload-badges-preview',
+			async () => {
+				const { owner, name } = getCurrentRepo();
+				window.showInformationMessage(`Reloading Badges for ${owner}/${name}`);
+				const sidebarCommands = [
+					'vscode-github-actions-badges.close-badges-preview',
+					'vscode-github-actions-badges.show-badges-preview',
+				];
+				sidebarCommands.forEach(async (sidebarCommand: string) => {
+					await commands.executeCommand(sidebarCommand);
+				});
+			}
+		),
+
 		commands.registerCommand(
 			'vscode-github-actions-badges.open-workflow',
 			async () => {
@@ -55,22 +95,6 @@ export function activate(context: ExtensionContext) {
 				window.showInformationMessage('Opening all workflows on GitHub.com');
 				env.openExternal(url);
 			}
-		),
-
-		commands.registerCommand(
-			'vscode-github-actions-badges.show-all-badges',
-			async () => {
-				const currentRepo = getCurrentRepo();
-				const badges = await getBadges(currentRepo);
-				const { owner, name } = currentRepo;
-				window.showInformationMessage(`Showing Badges for ${owner}/${name}`);
-				showBadgePanel(badges, context.extensionUri);
-			}
-		),
-
-		window.registerWebviewViewProvider(
-			'vscode-github-actions-badges-sidebar',
-			new SidebarProvider(context.extensionUri)
 		),
 	];
 
