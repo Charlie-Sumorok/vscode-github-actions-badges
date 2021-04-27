@@ -5,6 +5,7 @@ import {
 	Disposable,
 	env,
 	Uri,
+	ProgressLocation,
 } from 'vscode';
 
 import { getBadges } from './badges';
@@ -33,9 +34,22 @@ export function activate(context: ExtensionContext) {
 			'vscode-github-actions-badges.show-badges-preview',
 			async () => {
 				const { owner, name } = getCurrentRepo();
-				window.showInformationMessage(`Showing Badges for ${owner}/${name}`);
-				await commands.executeCommand(
-					'vscode-github-actions-badges-sidebar.focus'
+				window.withProgress(
+					{
+						location: ProgressLocation.Notification,
+						title: `Showing Badges for ${owner}/${name}`,
+						cancellable: true,
+					},
+					() => {
+						return new Promise<void>((resolve) => {
+							setTimeout(async () => {
+								await commands.executeCommand(
+									'vscode-github-actions-badges-sidebar.focus'
+								);
+								resolve();
+							}, 0);
+						});
+					}
 				);
 			}
 		),
@@ -44,8 +58,21 @@ export function activate(context: ExtensionContext) {
 			'vscode-github-actions-badges.close-badges-preview',
 			async () => {
 				const { owner, name } = getCurrentRepo();
-				window.showInformationMessage(`Closing Badges for ${owner}/${name}`);
-				await commands.executeCommand('workbench.action.closeSidebar');
+				window.withProgress(
+					{
+						location: ProgressLocation.Notification,
+						title: `Closing Badges for ${owner}/${name}`,
+						cancellable: true,
+					},
+					() => {
+						return new Promise<void>((resolve) => {
+							setTimeout(async () => {
+								await commands.executeCommand('workbench.action.closeSidebar');
+								resolve();
+							}, 0);
+						});
+					}
+				);
 			}
 		),
 
@@ -53,14 +80,27 @@ export function activate(context: ExtensionContext) {
 			'vscode-github-actions-badges.reload-badges-preview',
 			async () => {
 				const { owner, name } = getCurrentRepo();
-				window.showInformationMessage(`Reloading Badges for ${owner}/${name}`);
-				const sidebarCommands = [
-					'vscode-github-actions-badges.close-badges-preview',
-					'vscode-github-actions-badges.show-badges-preview',
-				];
-				sidebarCommands.forEach(async (sidebarCommand: string) => {
-					await commands.executeCommand(sidebarCommand);
-				});
+				window.withProgress(
+					{
+						location: ProgressLocation.Notification,
+						title: `Reloading Badges for ${owner}/${name}`,
+						cancellable: true,
+					},
+					() => {
+						return new Promise<void>((resolve) => {
+							setTimeout(async () => {
+								const sidebarCommands = [
+									'vscode-github-actions-badges.close-badges-preview',
+									'vscode-github-actions-badges.show-badges-preview',
+								];
+								sidebarCommands.forEach(async (sidebarCommand: string) => {
+									await commands.executeCommand(sidebarCommand);
+								});
+								resolve();
+							}, 0);
+						});
+					}
+				);
 			}
 		),
 
@@ -77,10 +117,21 @@ export function activate(context: ExtensionContext) {
 				});
 				const chosenWorkflow = await window.showQuickPick(quickPickBadges);
 				if (chosenWorkflow) {
-					window.showInformationMessage(
-						`Opening workflow '${chosenWorkflow.label}' on GitHub.com`
+					window.withProgress(
+						{
+							location: ProgressLocation.Notification,
+							title: `Opening workflow '${chosenWorkflow.label}' on GitHub.com`,
+							cancellable: true,
+						},
+						() => {
+							return new Promise<void>((resolve) => {
+								setTimeout(async () => {
+									env.openExternal(chosenWorkflow.url);
+									resolve();
+								}, 0);
+							});
+						}
 					);
-					env.openExternal(chosenWorkflow.url);
 				}
 			}
 		),
@@ -89,11 +140,21 @@ export function activate(context: ExtensionContext) {
 			() => {
 				const { owner, name } = getCurrentRepo();
 				const url = Uri.parse(`https://github.com/${owner}/${name}/actions`);
-				// The code you place here will be executed every time your command is executed
-
-				// Display a message box to the user
-				window.showInformationMessage('Opening all workflows on GitHub.com');
-				env.openExternal(url);
+				window.withProgress(
+					{
+						location: ProgressLocation.Notification,
+						title: 'Opening all workflows on GitHub.com',
+						cancellable: true,
+					},
+					() => {
+						return new Promise<void>((resolve) => {
+							setTimeout(async () => {
+								env.openExternal(url);
+								resolve();
+							}, 0);
+						});
+					}
+				);
 			}
 		),
 	];
