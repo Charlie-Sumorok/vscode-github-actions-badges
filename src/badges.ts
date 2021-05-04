@@ -92,7 +92,7 @@ const showBadges = (repo: Repo, badges: Badge[], styles: string[]) => {
 				// Loop through all list items, and hide those who don't match the search query
 				for (var i = 0; i < li.length; i++) {
 					var a = li[i].getElementsByTagName('a')[0];
-					var txtValue = a.children[0].dataset.name;
+					var txtValue = a.getAttribute('title')
 					if (txtValue.toUpperCase().indexOf(filter) > -1) {
 						li[i].style.display = '';
 					} else {
@@ -106,8 +106,8 @@ const showBadges = (repo: Repo, badges: Badge[], styles: string[]) => {
 			${badges
 				.map(({ badge, workflow, name }: Badge) => {
 					return `<li>
-								<a href="${workflow}">
-									<img src="${badge}" data-name="${name}">
+								<a href="${workflow}" title="${name}">
+									<img src="${badge}" alt="${name}">
 								</a>
 								<br />
 							</li>`;
