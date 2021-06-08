@@ -17,7 +17,7 @@
 		"onCommand:vscode-github-actions-badges.close-badges-preview",
 		"onCommand:vscode-github-actions-badges.reload-badges-preview"
 	],
-	"main": "./dist/extension.js",
+	"main": "./out/extension.js",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Charlie-Sumorok/vscode-github-actions-badges"
