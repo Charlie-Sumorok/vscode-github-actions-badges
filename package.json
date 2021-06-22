@@ -2,7 +2,7 @@
 	"name": "vscode-github-actions-badges",
 	"displayName": "GitHub Actions Badges",
 	"description": "View all GitHub Actions Badges of a GitHub repo",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"engines": {
 		"vscode": "^1.55.0"
 	},
