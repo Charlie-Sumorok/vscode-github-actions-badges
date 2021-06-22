@@ -4,9 +4,25 @@
 
 ## Features
 
-View all Github Actions Badges in the current repository
+### View all Github Actions Badges in the current repository
 
 ![sidebar](images/sidebar.png)
+
+### [Filter Badges](images/filter-badges.mov) in the sidebar
+
+<!-- [![filter-badges](images/filter-badges.gif)](images/filter-badges.gif) -->
+
+### [Click on a badge](images/click-badge.mov) to view it on GitHub.com
+
+<!-- [![click-badge](images/click-badge.gif)](images/click-badge.gif) -->
+
+### [Select a badge](images/select-badge.mov) to view on GitHub.com via the command pallete
+
+<!-- [![select-badge](images/select-badge.gif)](images/select-badge.gif) -->
+
+### [View All badges](images/all-badges.mov) on GitHub.com
+
+<!-- [![all-badges](images/all-badges.gif)](images/all-badges.gif) -->
 
 <!-- > Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow. -->
 
