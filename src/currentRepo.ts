@@ -1,5 +1,6 @@
+import { window, workspace } from 'vscode';
+
 import { execFileSync } from 'child_process';
-import { workspace, window } from 'vscode';
 
 export const getCurrentDirectory = () => {
 	if (workspace.workspaceFolders) {
@@ -41,7 +42,7 @@ export const getCurrentRepo = () => {
 			return index < parts[parts.length - 1].length - 4;
 		})
 		.join('');
-	const [owner, repoName] = parts.filter((_, index) => {
+	const [owner] = parts.filter((_, index) => {
 		return parts.length - index <= 2;
 	});
 	const name = url[1];
