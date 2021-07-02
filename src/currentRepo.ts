@@ -28,10 +28,10 @@ export const getRemoteURL = (directory: string) => {
 	});
 	const remoteURL = remotesInfo[0].url;
 
-	const folders = directory.split('/');
+	const folderParts = directory.split('/');
 	return {
 		url: remoteURL,
-		name: folders[folders.length - 1],
+		name: folderParts[folderParts.length - 1],
 	};
 };
 

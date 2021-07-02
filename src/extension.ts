@@ -1,16 +1,16 @@
 import {
-	ExtensionContext,
-	commands,
-	window,
 	Disposable,
-	env,
-	Uri,
+	ExtensionContext,
 	ProgressLocation,
+	Uri,
+	commands,
+	env,
+	window,
 } from 'vscode';
 
+import { SidebarProvider } from './sidebar';
 import { getBadges } from './badges';
 import { getCurrentRepo } from './currentRepo';
-import { SidebarProvider } from './sidebar';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -67,7 +67,9 @@ export function activate(context: ExtensionContext) {
 					() => {
 						return new Promise<void>((resolve) => {
 							setTimeout(async () => {
-								await commands.executeCommand('workbench.action.closeSidebar');
+								await commands.executeCommand(
+									'workbench.action.closeSidebar'
+								);
 								resolve();
 							}, 0);
 						});
@@ -93,9 +95,13 @@ export function activate(context: ExtensionContext) {
 									'vscode-github-actions-badges.close-badges-preview',
 									'vscode-github-actions-badges.show-badges-preview',
 								];
-								sidebarCommands.forEach(async (sidebarCommand: string) => {
-									await commands.executeCommand(sidebarCommand);
-								});
+								sidebarCommands.forEach(
+									async (sidebarCommand: string) => {
+										await commands.executeCommand(
+											sidebarCommand
+										);
+									}
+								);
 								resolve();
 							}, 0);
 						});
@@ -115,7 +121,9 @@ export function activate(context: ExtensionContext) {
 						url: Uri.parse(workflow),
 					};
 				});
-				const chosenWorkflow = await window.showQuickPick(quickPickBadges);
+				const chosenWorkflow = await window.showQuickPick(
+					quickPickBadges
+				);
 				if (chosenWorkflow) {
 					window.withProgress(
 						{
@@ -137,9 +145,11 @@ export function activate(context: ExtensionContext) {
 		),
 		commands.registerCommand(
 			'vscode-github-actions-badges.open-workflows',
-			() => {
+			async () => {
 				const { owner, name } = getCurrentRepo();
-				const url = Uri.parse(`https://github.com/${owner}/${name}/actions`);
+				const url = Uri.parse(
+					`https://github.com/${owner}/${name}/actions`
+				);
 				window.withProgress(
 					{
 						location: ProgressLocation.Notification,
