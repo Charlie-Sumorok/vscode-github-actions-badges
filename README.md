@@ -6,7 +6,7 @@
 
 ### View all Github Actions Badges in the current repository
 
-![sidebar](images/sidebar.png)
+![sidebar](media/sidebar.png)
 
 ### [Filter Badges](images/filter-badges.mov) in the sidebar
 
