@@ -29,23 +29,21 @@ export const getRemoteURL = (directory: string) => {
 	const remoteURL = remotesInfo[0].url;
 
 	const folders = directory.split('/');
-	return [remoteURL, folders[folders.length - 1]];
+	return {
+		url: remoteURL,
+		name: folders[folders.length - 1],
+	};
 };
 
 export const getCurrentRepo = () => {
 	const currentDirectory = getCurrentDirectory();
-	const url = getRemoteURL(currentDirectory);
-	let parts = url[0].split('/');
-	parts[parts.length - 1] = parts[parts.length - 1]
+	const { url, name } = getRemoteURL(currentDirectory);
+	const owner = url
 		.split('')
 		.filter((_: string, index: number) => {
-			return index < parts[parts.length - 1].length - 4;
+			return index < url[0].length - 4;
 		})
 		.join('');
-	const [owner] = parts.filter((_, index) => {
-		return parts.length - index <= 2;
-	});
-	const name = url[1];
 	return {
 		owner,
 		name,
