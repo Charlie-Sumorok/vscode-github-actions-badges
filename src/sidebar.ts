@@ -48,6 +48,6 @@ export class SidebarProvider implements WebviewViewProvider {
 	}
 
 	private async _getHtmlForWebview() {
-		return await getWebviewContent(await getBadges(getCurrentRepo()));
+		return await getWebviewContent(await getBadges(await getCurrentRepo()));
 	}
 }

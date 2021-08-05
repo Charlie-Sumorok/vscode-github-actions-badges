@@ -12,20 +12,25 @@ export const getCurrentDirectory = () => {
 	}
 };
 
-export const getRemoteURL = (directory: string) => {
+export const getRemoteURL = async (directory: string) => {
 	const remotesString = execFileSync('git', ['remote', '--verbose'], {
 		encoding: 'utf-8',
 		cwd: directory,
 	});
 	const remoteLines = remotesString.split('\n').filter(Boolean);
-	const remotesInfo = remoteLines.map((remoteLine) => {
-		const [remote, url, type] = remoteLine.split('\t').join(' ').split(' ');
-		return {
-			remote,
-			url,
-			type,
-		};
-	});
+	const remotesInfo = await Promise.all(
+		remoteLines.map(async (remoteLine) => {
+			const [remote, url, type] = remoteLine
+				.split('\t')
+				.join(' ')
+				.split(' ');
+			return {
+				remote,
+				url,
+				type,
+			};
+		})
+	);
 	const remoteURL = remotesInfo[0].url;
 
 	const folderParts = directory.split('/');
@@ -35,9 +40,9 @@ export const getRemoteURL = (directory: string) => {
 	};
 };
 
-export const getCurrentRepo = () => {
+export const getCurrentRepo = async () => {
 	const currentDirectory = getCurrentDirectory();
-	const { url, name } = getRemoteURL(currentDirectory);
+	const { url, name } = await getRemoteURL(currentDirectory);
 	const owner = url
 		.split('')
 		.filter((_: string, index: number) => {

@@ -33,7 +33,7 @@ export function activate(context: ExtensionContext) {
 		commands.registerCommand(
 			'vscode-github-actions-badges.show-badges-preview',
 			async () => {
-				const { owner, name } = getCurrentRepo();
+				const { owner, name } = await getCurrentRepo();
 				window.withProgress(
 					{
 						location: ProgressLocation.Notification,
@@ -57,7 +57,7 @@ export function activate(context: ExtensionContext) {
 		commands.registerCommand(
 			'vscode-github-actions-badges.close-badges-preview',
 			async () => {
-				const { owner, name } = getCurrentRepo();
+				const { owner, name } = await getCurrentRepo();
 				window.withProgress(
 					{
 						location: ProgressLocation.Notification,
@@ -81,7 +81,7 @@ export function activate(context: ExtensionContext) {
 		commands.registerCommand(
 			'vscode-github-actions-badges.reload-badges-preview',
 			async () => {
-				const { owner, name } = getCurrentRepo();
+				const { owner, name } = await getCurrentRepo();
 				window.withProgress(
 					{
 						location: ProgressLocation.Notification,
@@ -95,12 +95,14 @@ export function activate(context: ExtensionContext) {
 									'vscode-github-actions-badges.close-badges-preview',
 									'vscode-github-actions-badges.show-badges-preview',
 								];
-								sidebarCommands.forEach(
-									async (sidebarCommand: string) => {
-										await commands.executeCommand(
-											sidebarCommand
-										);
-									}
+								await Promise.all(
+									sidebarCommands.map(
+										(sidebarCommand: string) => {
+											return commands.executeCommand(
+												sidebarCommand
+											);
+										}
+									)
 								);
 								resolve();
 							}, 0);
@@ -113,7 +115,7 @@ export function activate(context: ExtensionContext) {
 		commands.registerCommand(
 			'vscode-github-actions-badges.open-workflow',
 			async () => {
-				const currentRepo = getCurrentRepo();
+				const currentRepo = await getCurrentRepo();
 				const badges = await getBadges(currentRepo);
 				const quickPickBadges = badges.map(({ workflow, name }) => {
 					return {
@@ -146,7 +148,7 @@ export function activate(context: ExtensionContext) {
 		commands.registerCommand(
 			'vscode-github-actions-badges.open-workflows',
 			async () => {
-				const { owner, name } = getCurrentRepo();
+				const { owner, name } = await getCurrentRepo();
 				const url = Uri.parse(
 					`https://github.com/${owner}/${name}/actions`
 				);

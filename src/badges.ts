@@ -21,32 +21,36 @@ export const getBadges = async (repo: Repo) => {
 		}
 	);
 	const rawWorkflows = request.data;
-	const workflows = rawWorkflows.workflows.map((workflow) => {
-		const workflowParts = {
-			badge: workflow.badge_url.split('/'),
-			html: workflow.html_url.split('/'),
-		};
-		const url = `${workflowParts.badge
-			.filter((_, index) => {
-				return index !== workflowParts.badge.length - 1;
-			})
-			.map((part) => {
-				if (part === 'workflows') {
-					return 'actions/workflows';
-				} else {
-					return part;
-				}
-			})
-			.filter((_, index) => {
-				return index < workflowParts.badge.length - 2;
-			})
-			.join('/')}/${workflowParts.html[workflowParts.html.length - 1]}`;
-		return {
-			badge: workflow.badge_url,
-			workflow: url,
-			name: workflow.name,
-		};
-	});
+	const workflows = await Promise.all(
+		rawWorkflows.workflows.map(async (workflow) => {
+			const workflowParts = {
+				badge: workflow.badge_url.split('/'),
+				html: workflow.html_url.split('/'),
+			};
+			const url = `${workflowParts.badge
+				.filter((_, index) => {
+					return index !== workflowParts.badge.length - 1;
+				})
+				.map((part) => {
+					if (part === 'workflows') {
+						return 'actions/workflows';
+					} else {
+						return part;
+					}
+				})
+				.filter((_, index) => {
+					return index < workflowParts.badge.length - 2;
+				})
+				.join('/')}/${
+				workflowParts.html[workflowParts.html.length - 1]
+			}`;
+			return {
+				badge: workflow.badge_url,
+				workflow: url,
+				name: workflow.name,
+			};
+		})
+	);
 	return workflows;
 };
 
@@ -247,7 +251,7 @@ img {
 `;
 
 export const getWebviewContent = async (badges: Badge[]) => {
-	const currentRepo = getCurrentRepo();
+	const currentRepo = await getCurrentRepo();
 	const styles = [mainStyle, resetStyle];
 	const badgesHTML = showBadges(currentRepo, badges, styles);
 	return badgesHTML;
