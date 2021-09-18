@@ -1,3 +1,13 @@
+[![CodeQL][codeql-badge]][codeql-link]
+
+[codeql-badge]: https://github.com/Charlie-Sumorok/vscode-github-actions-badges/actions/workflows/codeql-analysis.yml/badge.svg
+[codeql-link]: https://github.com/Charlie-Sumorok/vscode-github-actions-badges/actions/workflows/codeql-analysis.yml
+
+[![Node.js CI][node-ci-badge]][node-ci-link]
+
+[node-ci-badge]: https://github.com/Charlie-Sumorok/vscode-github-actions-badges/actions/workflows/node.js.yml/badge.svg
+[node-ci-link]: https://github.com/Charlie-Sumorok/vscode-github-actions-badges/actions/workflows/node.js.yml
+
 # vscode-github-actions-badges README
 
 <!-- This is the README for your extension "vscode-github-actions-badges". After writing up a brief description, we recommend including the following sections. -->
