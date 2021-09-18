@@ -81,7 +81,8 @@
 		"test-watch": "tsc -watch -p ./",
 		"pretest": "npm run test-compile && npm run lint",
 		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js"
+		"test": "node ./out/test/runTest.js",
+		"prepare": "husky install"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.4",
@@ -100,6 +101,8 @@
 		"webpack-cli": "^4.8.0"
 	},
 	"dependencies": {
-		"@octokit/core": "^3.5.1"
+		"@octokit/core": "^3.5.1",
+		"husk": "^0.5.3",
+		"husky": "^7.0.2"
 	}
 }
