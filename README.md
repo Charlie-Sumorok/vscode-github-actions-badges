@@ -20,19 +20,19 @@
 
 ### [Filter Badges](media/filter-badges.mov) in the sidebar
 
-<!-- [![filter-badges](media/filter-badges.mov.gif)](media/filter-badges.mov.gif) -->
+[![filter-badges](media/filter-badges.mov.gif)](media/filter-badges.mov.gif)
 
 ### [Click on a badge](media/click-badge.mov) to view it on GitHub.com
 
-<!-- [![click-badge](media/click-badge.mov.gif)](media/click-badge.mov.gif) -->
+[![click-badge](media/click-badge.mov.gif)](media/click-badge.mov.gif)
 
 ### [Select a badge](media/select-badge.mov) to view on GitHub.com via the command pallete
 
-<!-- [![select-badge](media/select-badge.mov.gif)](media/select-badge.mov.gif) -->
+[![select-badge](media/select-badge.mov.gif)](media/select-badge.mov.gif)
 
 ### [View All badges](media/all-badges.mov) on GitHub.com
 
-<!-- [![all-badges](media/all-badges.mov.gif)](media/all-badges.mov.gif) -->
+[![all-badges](media/all-badges.mov.gif)](media/all-badges.mov.gif)
 
 <!-- > Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow. -->
 
