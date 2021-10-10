@@ -18,21 +18,21 @@
 
 ![sidebar](media/sidebar.png)
 
-### [Filter Badges](images/filter-badges.mov) in the sidebar
+### [Filter Badges](media/filter-badges.mov) in the sidebar
 
-<!-- [![filter-badges](images/filter-badges.gif)](images/filter-badges.gif) -->
+<!-- [![filter-badges](media/filter-badges.mov.gif)](media/filter-badges.mov.gif) -->
 
-### [Click on a badge](images/click-badge.mov) to view it on GitHub.com
+### [Click on a badge](media/click-badge.mov) to view it on GitHub.com
 
-<!-- [![click-badge](images/click-badge.gif)](images/click-badge.gif) -->
+<!-- [![click-badge](media/click-badge.mov.gif)](media/click-badge.mov.gif) -->
 
-### [Select a badge](images/select-badge.mov) to view on GitHub.com via the command pallete
+### [Select a badge](media/select-badge.mov) to view on GitHub.com via the command pallete
 
-<!-- [![select-badge](images/select-badge.gif)](images/select-badge.gif) -->
+<!-- [![select-badge](media/select-badge.mov.gif)](media/select-badge.mov.gif) -->
 
-### [View All badges](images/all-badges.mov) on GitHub.com
+### [View All badges](media/all-badges.mov) on GitHub.com
 
-<!-- [![all-badges](images/all-badges.gif)](images/all-badges.gif) -->
+<!-- [![all-badges](media/all-badges.mov.gif)](media/all-badges.mov.gif) -->
 
 <!-- > Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow. -->
 
