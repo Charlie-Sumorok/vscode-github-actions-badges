@@ -1,6 +1,6 @@
-import { window, workspace } from 'vscode';
-
 import { execFileSync } from 'child_process';
+
+import { window, workspace } from 'vscode';
 
 export const getCurrentDirectory = () => {
 	if (workspace.workspaceFolders) {

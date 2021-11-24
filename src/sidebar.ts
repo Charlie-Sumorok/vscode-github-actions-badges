@@ -5,8 +5,8 @@ import {
 	WebviewViewProvider,
 	window,
 } from 'vscode';
-import { getBadges, getWebviewContent } from './badges';
 
+import { getBadges, getWebviewContent } from './badges';
 import { getCurrentRepo } from './currentRepo';
 
 export class SidebarProvider implements WebviewViewProvider {

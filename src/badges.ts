@@ -1,4 +1,5 @@
 import { Octokit } from '@octokit/core';
+
 import { getCurrentRepo } from './currentRepo';
 
 export interface Repo {

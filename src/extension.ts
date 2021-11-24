@@ -8,9 +8,9 @@ import {
 	window,
 } from 'vscode';
 
-import { SidebarProvider } from './sidebar';
 import { getBadges } from './badges';
 import { getCurrentRepo } from './currentRepo';
+import { SidebarProvider } from './sidebar';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
