@@ -2,6 +2,8 @@ import { execFileSync } from 'child_process';
 
 import { window, workspace } from 'vscode';
 
+import { Repo } from './badges';
+
 export const getCurrentDirectory = () => {
 	if (workspace.workspaceFolders) {
 		const rootFolder = workspace.workspaceFolders[0].uri.path;
@@ -12,24 +14,27 @@ export const getCurrentDirectory = () => {
 	}
 };
 
-export const getRemoteURL = async (directory: string) => {
+export const getRepoInDirectory = async (directory: string) => {
 	const remotesString = execFileSync('git', ['remote', '--verbose'], {
 		encoding: 'utf-8',
 		cwd: directory,
 	});
-	const remoteLines = remotesString.split('\n').filter(Boolean);
+
 	const remotesInfo = await Promise.all(
-		remoteLines.map(async (remoteLine) => {
-			const [remote, url, type] = remoteLine
-				.split('\t')
-				.join(' ')
-				.split(' ');
-			return {
-				remote,
-				url,
-				type,
-			};
-		})
+		remotesString
+			.split('\n')
+			.filter(Boolean)
+			.map(async (remoteLine) => {
+				const [remote, url, type] = remoteLine
+					.split('\t')
+					.join(' ')
+					.split(' ');
+				return {
+					remote,
+					url,
+					type,
+				};
+			})
 	);
 	const remoteURL = remotesInfo[0].url;
 
@@ -40,9 +45,9 @@ export const getRemoteURL = async (directory: string) => {
 	};
 };
 
-export const getCurrentRepo = async () => {
+export const getCurrentRepo: () => Promise<Repo> = async () => {
 	const currentDirectory = getCurrentDirectory();
-	const { url, name } = await getRemoteURL(currentDirectory);
+	const { url, name } = await getRepoInDirectory(currentDirectory);
 	const owner = url
 		.split('')
 		.filter((_: string, index: number) => {
