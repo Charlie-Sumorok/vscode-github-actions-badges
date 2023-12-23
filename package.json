@@ -93,7 +93,7 @@
 		"eslint": "^7.32.0",
 		"glob": "^10.3.10",
 		"mocha": "^10.2.0",
-		"ts-loader": "^9.4.4",
+		"ts-loader": "^9.5.1",
 		"typescript": "^5.0.2",
 		"vscode-test": "^1.6.1",
 		"webpack": "^5.77.0",
