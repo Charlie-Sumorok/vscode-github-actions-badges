@@ -100,6 +100,6 @@
 		"webpack-cli": "^5.1.4"
 	},
 	"dependencies": {
-		"@octokit/core": "^5.0.2"
+		"@octokit/core": "^6.0.1"
 	}
 }
